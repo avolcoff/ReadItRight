@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -75,8 +76,12 @@ public class MainActivity extends Activity {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String speechTextResult = result.get(0);
-                    if (textToRead.getText().toString().toLowerCase().equals(speechTextResult))
-                        textToRead.setBackgroundColor(Color.GREEN);
+                    if (textToRead.getText().toString().toLowerCase().contains(speechTextResult)){
+                        String textToReadString = textToRead.getText().toString();
+                        textToReadString = textToReadString.toLowerCase().replace(speechTextResult.toLowerCase(),"<font color=green>"+speechTextResult+"</font>");
+                        textToRead.setText(Html.fromHtml(textToReadString));
+                    }
+
                     else
                         textToRead.setBackgroundColor(Color.RED);
 
